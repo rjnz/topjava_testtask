@@ -10,9 +10,9 @@ public class Player {
     Long id;
     String name;
     String title;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     Race race;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     Profession profession;
     Integer experience;
     Integer level;
