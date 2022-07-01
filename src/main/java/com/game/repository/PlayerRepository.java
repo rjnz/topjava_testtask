@@ -14,8 +14,7 @@ import java.util.List;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
-    @Query("SELECT p FROM Player p " +
-            "WHERE (:name IS NULL OR p.name LIKE CONCAT('%', :name, '%')) " +
+    String FILTERS = " WHERE (:name IS NULL OR p.name LIKE CONCAT('%', :name, '%')) " +
             "AND (:title IS NULL OR p.title LIKE CONCAT('%', :title, '%')) " +
             "AND (:race IS NULL OR p.race = :race) " +
             "AND (:profession IS NULL OR p.profession = :profession) " +
@@ -25,9 +24,27 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
             "AND (:minExperience IS NULL OR p.experience >= :minExperience) " +
             "AND (:maxExperience IS NULL OR p.experience <= :maxExperience) " +
             "AND (:minLevel IS NULL OR p.level >= :minLevel) " +
-            "AND (:maxLevel IS NULL OR p.level <= :maxLevel) ")
+            "AND (:maxLevel IS NULL OR p.level <= :maxLevel) ";
+
+    @Query("SELECT p FROM Player p" + FILTERS)
     List<Player> getPlayers(
             Pageable pageable,
+            @Param("name") String name,
+            @Param("title") String title,
+            @Param("race") Race race,
+            @Param("profession") Profession profession,
+            @Param("after") Date after,
+            @Param("before") Date before,
+            @Param("banned") Boolean banned,
+            @Param("minExperience") Integer minExperience,
+            @Param("maxExperience") Integer maxExperience,
+            @Param("minLevel") Integer minLevel,
+            @Param("maxLevel") Integer maxLevel
+    );
+
+
+    @Query("SELECT COUNT (p) FROM Player p" + FILTERS)
+    Integer countPlayers(
             @Param("name") String name,
             @Param("title") String title,
             @Param("race") Race race,

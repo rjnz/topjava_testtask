@@ -55,4 +55,33 @@ public class PlayerController {
                 maxLevel
         );
     }
+
+    @GetMapping(value = "/players/count")
+    public Integer count(
+            @RequestParam @Nullable String name,
+            @RequestParam @Nullable String title,
+            @RequestParam @Nullable Race race,
+            @RequestParam @Nullable Profession profession,
+            @RequestParam @Nullable Long after,
+            @RequestParam @Nullable Long before,
+            @RequestParam @Nullable Boolean banned,
+            @RequestParam @Nullable Integer minExperience,
+            @RequestParam @Nullable Integer maxExperience,
+            @RequestParam @Nullable Integer minLevel,
+            @RequestParam @Nullable Integer maxLevel
+    ) {
+        return service.count(
+                name,
+                title,
+                race,
+                profession,
+                after,
+                before,
+                banned,
+                minExperience,
+                maxExperience,
+                minLevel,
+                maxLevel
+        );
+    }
 }

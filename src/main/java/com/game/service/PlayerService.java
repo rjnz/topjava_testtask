@@ -53,4 +53,32 @@ public class PlayerService {
                 maxLevel
         );
     }
+
+    public Integer count(
+            String name,
+            String title,
+            Race race,
+            Profession profession,
+            Long after,
+            Long before,
+            Boolean banned,
+            Integer minExperience,
+            Integer maxExperience,
+            Integer minLevel,
+            Integer maxLevel
+    ) {
+        return repository.countPlayers(
+                name,
+                title,
+                race,
+                profession,
+                after == null ? null : new Date(after),
+                before == null ? null : new Date(before),
+                banned,
+                minExperience,
+                maxExperience,
+                minLevel,
+                maxLevel
+        );
+    }
 }
